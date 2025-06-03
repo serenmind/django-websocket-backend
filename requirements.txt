@@ -1,0 +1,13 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+channels
+channels-redis
+asgiref
+sqlparse
+redis
+PyJWT
+msgpack
+drf_spectacular
+daphne
+gunicorn

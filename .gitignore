@@ -1,0 +1,53 @@
+# Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.env
+.env.*
+venv/
+ENV/
+.envrc
+*.egg-info/
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Docker
+*.pid
+dist/
+build/
+*.egg
+*.bak
+*.swp
+
+# System
+Thumbs.db
+.DS_Store
+
+# Nginx
+*.pid
+
+# Coverage
+htmlcov/
+.coverage
+.tox/
+.coverage.*
+.cache
+
+# Migrations
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/*.pyd
+**/migrations/__pycache__/
+
+# Static/media
+staticfiles/
+media/
