@@ -51,3 +51,6 @@ htmlcov/
 # Static/media
 staticfiles/
 media/
+
+# Local API test files
+api.http
