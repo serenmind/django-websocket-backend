@@ -46,7 +46,7 @@ This project is a production-ready Django backend with:
 
 ## Production
 - Nginx proxies /ws/ and /api/ to ASGI, all else to WSGI
-- Healthcheck endpoint at `/` for Docker/Nginx
+- (Add your own healthcheck endpoint if needed for Docker/Nginx)
 - Use strong secrets and HTTPS in production
 
 ## License
