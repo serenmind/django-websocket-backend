@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'channels',
     'chat',
     'drf_spectacular',
+    'realtime',
 ]
 
 MIDDLEWARE = [

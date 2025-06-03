@@ -11,6 +11,7 @@
 8. WebSocket Setup (Django Channels)
 9. WSGI vs ASGI: How the Project Works
 10. Notes on PostgreSQL Usage
+11. Using the Realtime App for Generic WebSocket Events
 
 ---
 
@@ -162,6 +163,49 @@ CMD ["/bin/bash"]
   - Update `DATABASES` in `backend/settings.py` to use PostgreSQL.
   - Add a `postgres` service to `docker-compose.yml` and configure environment variables.
 - PostgreSQL is more robust and scalable for production workloads.
+
+---
+
+## 11. Using the Realtime App for Generic WebSocket Events
+
+The `realtime` app provides a generic WebSocket interface for any Django app in this project to push real-time data to the frontend, eliminating the need for REST API polling.
+
+### How It Works
+- The frontend opens a persistent WebSocket connection to `/ws/realtime/?token=<jwt>` after user login.
+- The backend can send data to the frontend at any time (e.g., on model save, signal, or background task) using the `notify_user` function in `realtime/notification.py`.
+- The frontend receives updates instantly, without any user interaction or polling.
+
+### Example Usage
+**Backend:**
+```python
+from realtime.notification import notify_user
+
+def some_backend_event(user_id):
+    data = {"type": "notification", "message": "You have a new message!"}
+    notify_user(user_id, data)
+```
+
+**Frontend:**
+- Open a WebSocket connection once (e.g., when the app loads):
+  ```js
+  const ws = new WebSocket("ws://localhost/ws/realtime/?token=YOUR_JWT_TOKEN");
+  ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      // Handle the real-time event (e.g., show notification)
+  };
+  // Optionally, add reconnect logic if needed
+  ```
+
+### Best Practices
+- Keep the WebSocket connection open as long as the user is active in your app.
+- Use the connection for all real-time updates (notifications, status, etc.).
+- Backend can trigger `notify_user()` from any app, view, signal, or background task.
+- No special always-on channel is needed; the persistent WebSocket connection is the live channel.
+
+### Benefits
+- Decouples real-time delivery from REST APIs.
+- Reduces server load by eliminating polling.
+- Enables instant UI updates for any backend event.
 
 ---
 
